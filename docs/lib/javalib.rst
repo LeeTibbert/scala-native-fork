@@ -535,6 +535,54 @@ be partially implemented. Please consult `javalib sources
 <https://github.com/scala-native/scala-native/tree/main/javalib/src/main/scala/java>`_
 for details.
 
+Java versions: compilation and linking
+--------------------------------------
+
+The Scala Native Java Standard Library (javalib) is based on the
+`Java™ Platform, Standard Edition 8 API Specification
+<https://docs.oracle.com/javase/8/docs/api/>`_.
+There are a few additions from later Java versions, such as ``Math.fma``
+from the Java 9 API. These are noted in the source files.
+
+When building an application using Scala Native, it is useful to know that
+Scala Native uses the "active" Java version during the compilation phase
+and the Scala Native javalib artifact during the linking phase. A mismatch
+in Java versions may cause unhappiness.
+
+To ensure that Java 8 is used at compilation time on systems with a different
+system Java version, many Linux & macOS developers have a project login
+script. The script either sets Java 8 early on the PATH environment variable
+or defines the JAVA_HOME environment variable.
+
+The general rule is that any Java method used in code must have a
+corresponding entry in Scala Native's javalib in order to avoid
+an error at link time::
+
+  [error] Found 1 missing definitions while linking
+  [error] Not found Member(Stream.mapMulti) // example, not exact text
+  [error]     at /home/user/Projects/xyz/src/main/scala/App.scala
+  [error] Undefined definitions found in reachability phase
+  [error] (Compile / nativeLink) Undefined definitions found in reachability
+
+There are a number of ways for this error to occur. Here `Stream.mapMulti`,
+introduced in Java 16, has been used in the code, the code has been compiled
+using Java 16, and linked with Scala Native's Java 8 based javalib.
+Compiling with Java 8 would have revealed the nonexistent Java 8 method
+at that stage.
+
+The version of Java which will be used for compilation is shown in
+the header message when `sbt` starts::
+  
+  $ sbt
+  [info] welcome to sbt 1.8.0 (Private Build Java 1.8.0_352)
+  // Many lines removed
+  [info] Detected JDK version 8
+
+It can also be determined within `sbt`::
+  
+  sbt> javaVersion
+  [info] 8
+
 Regular expressions (java.util.regex)
 -------------------------------------
 
