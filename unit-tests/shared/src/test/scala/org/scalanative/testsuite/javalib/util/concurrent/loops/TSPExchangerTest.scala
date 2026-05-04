@@ -9,7 +9,7 @@
 /* Scala Native Notes for Travelling Salesperson Problem (TSP) ExchangerTest:
  *
  *   0. BEWARE! This code currently reveals a GC-crash bug as
- *      described in SN Issue #TBD.  To run to completion, it
+ *      described in SN Issue #4871.  To run to completion, it
  *      should be built with mode=debug. Note well that the
  *      execution speed when built with mode=debug and a SN backend
  *      is 15 or more times slower than with a JVM backend.
