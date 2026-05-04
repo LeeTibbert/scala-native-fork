@@ -16,7 +16,7 @@
  *
  *      This BUG manifests itself when DEFAULT_MAX_THREADS > NCPUS.
  *      To use mode=release-fast, say for execution timing studies,
- *      One can edit this file and reduce DEFAULT_MAX_THREADS to or below
+ *      one can edit this file and reduce DEFAULT_MAX_THREADS to or below
  *      NCPUS. Of course, doing so limits the available parallelism.
  *      Nasty bug!
  *
