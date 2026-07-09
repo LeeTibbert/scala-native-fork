@@ -54,7 +54,7 @@ class BigIntegerTestOnJDK9 {
     locally {
       val expectedRoot = 5L
       val power = 2
-      val testValue = jl.Math.powExact(expectedRoot, power)
+      val testValue = jl.Math.pow(expectedRoot.toDouble, power.toDouble).toLong
 
       val bi = new BigInteger(testValue.toString)
 
@@ -92,7 +92,7 @@ class BigIntegerTestOnJDK9 {
       val expectedRoot = 5L
       val expectedRemainder = 0L
       val power = 2
-      val testValue = jl.Math.powExact(expectedRoot, power)
+      val testValue = jl.Math.pow(expectedRoot.toDouble, power.toDouble).toLong
 
       val bi = new BigInteger(testValue.toString)
 
